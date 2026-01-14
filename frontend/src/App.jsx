@@ -1,9 +1,23 @@
-import React from 'react'
 
-const App = () => {
+import React from "react";
+import { useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchCurrentUser } from "./redux/authSlice/authSlice";
+import AppRoutes from "./routes/AppRoutes";
+
+function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
   return (
-    <div className='bg-amber-600'>App</div>
-  )
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
