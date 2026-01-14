@@ -11,5 +11,7 @@ export const currentUser = async (req, res) => {
    if (!user) {
     return res.status(404).json({ message: "Please login first" });
   }
+
+  
   res.json(user);
 };

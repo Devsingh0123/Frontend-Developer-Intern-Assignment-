@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/authSlice/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import Loader from '../components/Loader';
+import toast from "react-hot-toast";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,8 @@ const Register = () => {
     }
 
     dispatch(registerUser(formData));
+    toast.success("Register successfully ✅");
+
   };
 
   useEffect(() => {

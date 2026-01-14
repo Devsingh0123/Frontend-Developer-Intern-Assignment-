@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/authSlice/authSlice";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const Navbar = () => {
           onClick={async () => {
           await dispatch(logoutUser())
           navigate("/login");
+          toast.success("Logout successfully ✅");
           }}
           className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 cursor-pointer"
         >

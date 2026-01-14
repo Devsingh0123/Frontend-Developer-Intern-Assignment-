@@ -11,7 +11,7 @@ export const fetchCurrentUser = createAsyncThunk(
       const res = await axios.get(`${API}/user/currentUser`, {
         withCredentials: true,
       });
-      console.log(res.data);
+      // console.log(res.data);
 
       return res.data;
     } catch (error) {
@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
       const res = await axios.post(`${API}/auth/login`, data, {
         withCredentials: true,
       });
-      console.log(res.data);
+      // console.log(res.data);
 
       return res.data.user;
     } catch (error) {
@@ -45,7 +45,7 @@ export const registerUser = createAsyncThunk(
       const res = await axios.post(`${API}/auth/register`, data, {
         withCredentials: true,
       });
-      console.log(res.data);
+      // console.log(res.data);
 
       return res.data.user;
     } catch (error) {

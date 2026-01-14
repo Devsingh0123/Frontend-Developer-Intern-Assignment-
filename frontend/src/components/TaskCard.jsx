@@ -3,19 +3,22 @@ import { useDispatch } from "react-redux";
 import { deleteTask } from "../redux/taskSlice/taskSlice";
 import TaskForm from "./TaskForm";
 import toast from "react-hot-toast";
-
+import { MdEditDocument } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const TaskCard = ({ task }) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
 
-  console.log(task);
+  // console.log(task);
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this task?")) {
       dispatch(deleteTask(task._id));
        toast.success("Task deleted 🗑️");
     }else{
+      
+      
       toast.error("Failed to delete task ❌");
     }
   };
@@ -38,18 +41,18 @@ const TaskCard = ({ task }) => {
             {task.completed ? "completed" : "pending"}
           </span>
 
-          <div className="absolute top-2 right-2 flex gap-2 ">
+          <div className="absolute top-2 right-2 flex gap-6 ">
             <button
               onClick={() => setIsEditing(true)}
-              className="text-blue-600 hover:text-blue-800 font-medium"
+              className="text-blue-600 hover:text-blue-800 font-medium text-2xl"
             >
-              Edit
+             <MdEditDocument />
             </button>
             <button
               onClick={handleDelete}
-              className="text-red-600 hover:text-red-800 font-medium"
+              className="text-red-600 hover:text-red-800 font-medium text-2xl"
             >
-              Delete
+             <RiDeleteBin6Line />
             </button>
           </div>
         </>

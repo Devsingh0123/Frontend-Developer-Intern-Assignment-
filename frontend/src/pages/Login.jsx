@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/authSlice/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import Loader from '../components/Loader';
+import toast from "react-hot-toast";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const Login = () => {
   const { isAuthenticated, loading, error } = useSelector(
     (state) => state.auth
   );
+  
 
   const [formData, setFormData] = useState({
     email: "",
@@ -26,13 +28,20 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser(formData));
+   
+    
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/dashboard");
-    }
-  }, [isAuthenticated, navigate]);
+  if (isAuthenticated) {
+    toast.success("Login successful ✅");
+    navigate("/dashboard");
+  }
+
+  if (error) {
+    toast.error(`${error} ❌`);
+  }
+}, [isAuthenticated, error, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 px-4">
