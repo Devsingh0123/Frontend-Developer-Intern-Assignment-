@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/task.routes.js";
-import currentUser from "./routes/currentUser.router.js";
+import currentUser from "./routes/currentUser.routes.js";
 
 const PORT = process.env.PORT || 5000;
 
