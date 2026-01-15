@@ -7,6 +7,8 @@ const API = import.meta.env.VITE_API_BASE_URL;
 export const fetchCurrentUser = createAsyncThunk(
   "auth/currentUser",
   async (_, { rejectWithValue }) => {
+    console.log(API);
+    
     try {
       const res = await axios.get(`${API}/user/currentUser`, {
         withCredentials: true,
@@ -24,6 +26,7 @@ export const fetchCurrentUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (data, { rejectWithValue }) => {
+    console.log(API);
     try {
       const res = await axios.post(`${API}/auth/login`, data, {
         withCredentials: true,
@@ -41,6 +44,7 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (data, { rejectWithValue }) => {
+    console.log(API);
     try {
       const res = await axios.post(`${API}/auth/register`, data, {
         withCredentials: true,
@@ -107,7 +111,7 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        state.isAuthenticated = true;
+        
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

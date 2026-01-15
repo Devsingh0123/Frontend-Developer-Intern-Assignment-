@@ -36,6 +36,7 @@ const Register = () => {
 
     dispatch(registerUser(formData));
     toast.success("Register successfully ✅");
+    navigate("/login")
 
   };
 
