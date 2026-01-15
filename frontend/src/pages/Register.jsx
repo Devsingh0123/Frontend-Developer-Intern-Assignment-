@@ -35,10 +35,11 @@ const Register = () => {
     }
 
     dispatch(registerUser(formData));
-    if (!loading && !error) {
+    if (!error) {
       toast.success("Register successfully ✅");
-      navigate("/login");
+      
     }
+    navigate("/login");
   };
 
   useEffect(() => {
