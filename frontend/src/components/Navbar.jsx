@@ -9,11 +9,16 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
-  const handleLogout = () => {
-    dispatch(logoutUser()).unwrap();
-    navigate("/login");
-    toast.success("Logout successfully ✅");
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      toast.success("Logout successfully ✅");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Logout failed ❌");
+    }
   };
+  
 
   return (
     <nav className="bg-purple-600 text-white px-6 py-4 flex justify-between items-center">

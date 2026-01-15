@@ -11,7 +11,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated, loading, error, user } = useSelector((state) =>{
+  const {  loading } = useSelector((state) =>{
     console.log(state.auth)
     return state.auth});
 
@@ -26,28 +26,26 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error("Passwords do not match ❌");
       return;
     }
-
-    dispatch(registerUser(formData));
-
-    
-
-    navigate("/login");
-  };
-
-  useEffect(() => {
-    
-    if (error) {
+  
+    try {
+      await dispatch(registerUser(formData)).unwrap();
+      toast.success("Registered successfully 🎉");
+      navigate("/login");
+    } catch (error) {
       toast.error(error);
-    } 
+    }
+  };
+  
+
     
-  }, [isAuthenticated, error, user]);
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-500 to-purple-600 px-4">

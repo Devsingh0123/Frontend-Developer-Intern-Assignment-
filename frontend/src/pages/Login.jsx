@@ -25,23 +25,19 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginUser(formData));
-   
-    
+  
+    try {
+      await dispatch(loginUser(formData)).unwrap();
+      toast.success("Login successful ✅");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(error);
+    }
   };
+  
 
-  useEffect(() => {
-  if (isAuthenticated) {
-    navigate("/dashboard");
-    toast.success("Login successful ✅");
-  }
-
-  if (error) {
-    toast.error(error);
-  }
-}, [isAuthenticated, error, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 px-4">
