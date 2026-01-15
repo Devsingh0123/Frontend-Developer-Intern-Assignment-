@@ -76,7 +76,7 @@ const TaskForm = ({ editableTask = null, onClose }) => {
         <option value="false">Pending</option>
         <option value="true">Completed</option>
       </select>
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+      {/* {error && <p className="text-red-500 text-sm mb-2">{error}</p>} */}
      
         <button
         type="submit"
