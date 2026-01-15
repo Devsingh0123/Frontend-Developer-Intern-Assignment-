@@ -10,7 +10,7 @@ const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logoutUser()).unwrap();
     toast.success("Logout successfully ✅");
     navigate("/login");
   };

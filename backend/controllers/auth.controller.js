@@ -1,13 +1,10 @@
-
 import User from "../models/User.schema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-
 // register controller
 export const registerUser = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
-
 
   if (!name || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: "All fields are required" });
@@ -30,39 +27,39 @@ export const registerUser = async (req, res) => {
     password: hashedPassword,
   });
 
-  res.status(201).json({user, message: "User registered successfully" });
+  res.status(201).json({ user, message: "User registered successfully" });
 };
-
-
 
 //login controller
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  if (!user)
-    return res.status(400).json({ message: "Invalid credentials" });
+  if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch)
-    return res.status(400).json({ message: "Invalid credentials" });
+  if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-  const token = jwt.sign(
-    { id: user._id },
-    process.env.JWT_SECRET,
-    { expiresIn: "1d" }
-  );
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
 
-  res.cookie("token", token, {
-  httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-  maxAge: 7 * 24 * 60 * 60 * 1000,}).json({user});
+  res
+    .cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    })
+    .json({ user });
 };
-
 
 // logout controller
 export const logoutUser = (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
   res.json({ message: "Logged out successfully" });
 };
